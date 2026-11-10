@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1877f2">
+<title>SocialSpace | Phishing Awareness Simulation</title>
+<style>
+:root{--blue:#1877f2;--ink:#1c1e21;--muted:#606770;--bg:#f0f2f5}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;display:flex;flex-direction:column}
+.banner{background:#fff3cd;color:#664d03;border-bottom:1px solid #ffecb5;padding:11px 16px;text-align:center;font-size:13px;font-weight:700}
+main{width:min(980px,92%);margin:auto;padding:46px 0;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.brand h1{color:var(--blue);font-size:clamp(42px,6vw,58px);margin:0 0 12px;letter-spacing:-2px}.brand p{font-size:24px;line-height:1.35;margin:0;max-width:440px}
+.card{background:white;padding:22px;border-radius:12px;box-shadow:0 2px 14px #0002}.card h2{margin:0 0 16px;font-size:20px}
+input{width:100%;padding:15px 14px;margin:0 0 12px;border:1px solid #dddfe2;border-radius:7px;font-size:16px}
+input:focus{outline:2px solid #bcd6ff;border-color:var(--blue)}
+button{width:100%;border:0;border-radius:7px;padding:13px;color:white;background:var(--blue);font-size:18px;font-weight:700;cursor:pointer}
+.note{color:var(--muted);font-size:12px;line-height:1.5;margin:14px 2px 0}
+.status{display:none;margin-top:16px;padding:13px 14px;border-radius:8px;line-height:1.45;font-size:14px}
+.error{background:#fff0f0;border:1px solid #f5c2c7;color:#842029}
+.welcome{display:none;grid-column:1/-1;background:white;padding:36px 28px;border-radius:14px;box-shadow:0 2px 14px #0002;text-align:center}
+.check{width:64px;height:64px;margin:0 auto 16px;display:grid;place-items:center;border-radius:50%;background:#e8f5e9;color:#188038;font-size:34px}
+.welcome h2{color:#17365d;font-size:clamp(26px,4vw,38px);margin:0 0 10px}.welcome p{color:#4b5563;line-height:1.6;max-width:680px;margin:8px auto}
+.lesson{margin:22px auto 0;padding:16px;background:#f0f6ff;border-radius:9px;text-align:left;max-width:680px}.welcome button{max-width:220px;margin-top:18px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:18px}
+@media(max-width:700px){main{grid-template-columns:1fr;gap:26px;padding:32px 0}.brand p{font-size:20px}.welcome{grid-column:auto}}
+</style></head><body>
+<div class="banner">CYBERSECURITY TRAINING SIMULATION — NOT A REAL SOCIAL-MEDIA LOGIN</div>
+<main id="main">
+<section class="brand" id="brand"><h1>SocialSpace</h1><p>Connect with friends and the world around you.</p></section>
+<section class="card" id="login-card" aria-label="Training login simulation">
+<h2>Log in to continue</h2>
+<form id="demo-form" autocomplete="off">
+<input type="text" placeholder="Email address or phone number" aria-label="Fictional email or phone number" autocomplete="off">
+<input type="password" placeholder="Password (use a fictional one)" aria-label="Fictional password" autocomplete="new-password">
+<button type="submit">Log In</button></form>
+<p class="note">Use made-up details only. This demonstration does not read, send, save, or collect anything you type. It only counts form submissions.</p>
+<div class="status error" id="error" role="alert" aria-live="polite"></div>
+</section>
+<section class="welcome" id="welcome" aria-live="polite">
+<div class="check">✓</div><h2>Welcome to your page!</h2>
+<p>You have reached the end of this training simulation.</p>
+<div class="lesson"><strong>Pause — this was a phishing-awareness exercise.</strong>
+<p>A page can look familiar and still be fake. Before entering credentials, check the website address carefully and open services through a trusted bookmark or official app. Never share your password or one-time verification code.</p></div>
+<p><strong>Remember:</strong> A real service should not repeatedly ask you to re-enter your password after unexplained login failures.</p>
+<button type="button" id="restart">Restart demo</button>
+</section></main>
+<footer>For classroom cybersecurity awareness training only. No credentials are collected.</footer>
+<script>
+// Privacy-safe: never read field values, store credentials, or send network requests.
+let submissions=0;
+const form=document.getElementById('demo-form'), error=document.getElementById('error');
+const loginCard=document.getElementById('login-card'), brand=document.getElementById('brand');
+const welcome=document.getElementById('welcome');
+form.addEventListener('submit',function(e){
+ e.preventDefault(); submissions++;
+ if(submissions<5){
+  error.textContent='Incorrect username or password. Please try again. (Demo attempt '+submissions+' of 5; '+(5-submissions)+' remaining.)';
+  error.style.display='block'; form.reset();
+ }else{
+  loginCard.style.display='none'; brand.style.display='none'; welcome.style.display='block';
+  welcome.scrollIntoView({behavior:'smooth',block:'center'});
+ }
+});
+document.getElementById('restart').addEventListener('click',function(){
+ submissions=0; form.reset(); error.style.display='none'; welcome.style.display='none';
+ loginCard.style.display='block'; brand.style.display='block';
+});
+</script></body></html>
